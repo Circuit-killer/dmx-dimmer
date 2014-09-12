@@ -97,8 +97,7 @@ ISR (INT0_vect, ISR_NOBLOCK) {
     zc.old_dur = zc.dur;
 
     // read two ints into long int
-    zc.dur = tcnth;
-    zc.dur = zc.dur << 8;
+    zc.dur = tcnth << 8;
     zc.dur += tcntl;
 
     // push old zc_dur towards new
@@ -108,7 +107,7 @@ ISR (INT0_vect, ISR_NOBLOCK) {
      * if some low-value angles were not reached due to duration being
      * too long, take them into account and reduce the duration further
      */
-    zc.deg_dur = zc.dur/256;
+    zc.deg_dur = zc.dur >> 8; // div by 256
 
     // reset current-angle counter
     zc.angle = 255;
